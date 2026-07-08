@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LedgerMatch — Bank Reconciliation in Seconds</title>
+  <meta name="description" content="Drop in a bank statement CSV and a ledger CSV — LedgerMatch fuzzy-matches transactions, flags discrepancies, and builds a reconciliation report. 100% in your browser." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230066FF'/%3E%3Ctext x='16' y='22' font-family='Inter,Arial,sans-serif' font-size='15' font-weight='800' fill='white' text-anchor='middle'%3E%E2%87%84%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="logo"><span class="mark">LM</span>LedgerMatch</div>
+      <p class="tagline">Bank reconciliation in seconds. Drop in a bank statement CSV and a ledger CSV — transactions are matched by amount, date proximity, and description similarity. Everything runs in your browser; no data ever leaves your machine.</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div class="zones">
+      <div class="dropzone" id="bank-zone" role="button" tabindex="0" aria-label="Upload bank statement CSV">
+        <div class="dz-icon">🏦</div>
+        <p class="dz-title">Bank statement CSV</p>
+        <p class="dz-sub">Drag &amp; drop or click to browse</p>
+        <input type="file" id="bank-input" accept=".csv,text/csv" />
+      </div>
+      <div class="dropzone" id="ledger-zone" role="button" tabindex="0" aria-label="Upload ledger CSV">
+        <div class="dz-icon">📒</div>
+        <p class="dz-title">Ledger / books CSV</p>
+        <p class="dz-sub">Drag &amp; drop or click to browse</p>
+        <input type="file" id="ledger-input" accept=".csv,text/csv" />
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-primary" id="sample">Try with sample data</button>
+      <button class="btn btn-outline" id="export">Export report CSV</button>
+      <label class="window-field">Date window
+        <input type="number" id="window" value="5" min="0" max="60" /> days
+      </label>
+    </div>
+
+    <section id="results" hidden aria-label="Reconciliation results">
+
+      <div class="stat-row">
+        <div class="stat"><p class="k">Match rate</p><p class="v accent" id="stat-rate">0%</p></div>
+        <div class="stat"><p class="k">Matched pairs</p><p class="v" id="stat-matched">0</p></div>
+        <div class="stat"><p class="k">Bank only</p><p class="v" id="stat-bank">0</p></div>
+        <div class="stat"><p class="k">Ledger only</p><p class="v" id="stat-ledger">0</p></div>
+      </div>
+
+      <div class="totals">
+        <span>Bank net total <strong id="sum-bank">$0</strong></span>
+        <span>Ledger net total <strong id="sum-ledger">$0</strong></span>
+        <span>Difference <strong id="sum-diff">$0</strong></span>
+      </div>
+
+      <h2 class="sub">Matched transactions</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Bank date</th><th>Bank description</th><th>Ledger date</th><th>Ledger description</th><th class="num">Amount</th><th class="num">Confidence</th></tr></thead>
+          <tbody id="matched-body"></tbody>
+        </table>
+      </div>
+
+      <h2 class="sub">On the bank statement, not in your books<span class="count" id="ub-count">0</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Description</th><th class="num">Amount</th></tr></thead>
+          <tbody id="ub-body"></tbody>
+        </table>
+      </div>
+
+      <h2 class="sub">In your books, not on the bank statement<span class="count" id="ul-count">0</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Description</th><th class="num">Amount</th></tr></thead>
+          <tbody id="ul-body"></tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Built by <a href="https://bulbringai.com" rel="noopener">Noah Bulbring</a> · <a href="https://github.com/NoahBulbring/ledgermatch" rel="noopener">Source on GitHub</a>
+    </div>
+  </footer>
+
+  <script src="engine.js"></script>
+  <script src="sample-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
