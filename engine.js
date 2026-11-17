@@ -1,5 +1,3 @@
-/* ── LedgerMatch — CSV parsing + matching engine ──────────── */
-
 /* Minimal RFC-4180-ish CSV parser (quotes, escaped quotes, CRLF) */
 function parseCSV(text) {
   const rows = [];

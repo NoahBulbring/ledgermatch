@@ -1,5 +1,3 @@
-/* ── LedgerMatch — UI ─────────────────────────────────────── */
-
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => n.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' });
 const fmtDate = (d) => (d ? d.toISOString().slice(0, 10) : '—');

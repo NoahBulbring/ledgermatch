@@ -1,5 +1,3 @@
-/* ── LedgerMatch — realistic sample data for the demo ─────── */
-
 const SAMPLE_BANK = `Date,Description,Amount
 2026-06-01,PAYROLL DEPOSIT ACME CORP,4250.00
 2026-06-02,SHOPIFY* MERCH STORE TORONTO,-89.99

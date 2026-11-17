@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LedgerMatch — Bank Reconciliation in Seconds</title>
+  <title>LedgerMatch — Bank Reconciliation</title>
   <meta name="description" content="Drop in a bank statement CSV and a ledger CSV — LedgerMatch fuzzy-matches transactions, flags discrepancies, and builds a reconciliation report. 100% in your browser." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +16,7 @@
   <header class="header">
     <div class="container">
       <div class="logo"><span class="mark">LM</span>LedgerMatch</div>
-      <p class="tagline">Bank reconciliation in seconds. Drop in a bank statement CSV and a ledger CSV — transactions are matched by amount, date proximity, and description similarity. Everything runs in your browser; no data ever leaves your machine.</p>
+      <p class="tagline">Drop in a bank statement CSV and a ledger CSV. Transactions are matched by amount, date, and description — the rest are flagged for review. Everything runs in your browser.</p>
     </div>
   </header>
 
@@ -24,13 +24,11 @@
 
     <div class="zones">
       <div class="dropzone" id="bank-zone" role="button" tabindex="0" aria-label="Upload bank statement CSV">
-        <div class="dz-icon">🏦</div>
         <p class="dz-title">Bank statement CSV</p>
         <p class="dz-sub">Drag &amp; drop or click to browse</p>
         <input type="file" id="bank-input" accept=".csv,text/csv" />
       </div>
       <div class="dropzone" id="ledger-zone" role="button" tabindex="0" aria-label="Upload ledger CSV">
-        <div class="dz-icon">📒</div>
         <p class="dz-title">Ledger / books CSV</p>
         <p class="dz-sub">Drag &amp; drop or click to browse</p>
         <input type="file" id="ledger-input" accept=".csv,text/csv" />
