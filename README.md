@@ -1,8 +1,8 @@
-# LedgerMatch — Bank Reconciliation in Seconds
+# LedgerMatch
 
-Drop in a **bank statement CSV** and a **ledger CSV** and LedgerMatch reconciles them instantly: transactions are matched by exact amount, date proximity, and description similarity, discrepancies are flagged in both directions, and the whole thing exports as a clean reconciliation report.
+Drop in a bank statement CSV and a ledger CSV and it reconciles them: transactions are matched by exact amount, date proximity, and description similarity, discrepancies are flagged in both directions, and the result exports as a reconciliation report.
 
-**[Live demo →](https://noahbulbring.github.io/ledgermatch/)** — click *"Try with sample data"* to see it work without uploading anything.
+Live demo: https://noahbulbring.github.io/ledgermatch/ — click "Try with sample data" to see it work without uploading anything.
 
 ![LedgerMatch screenshot](screenshot.png)
 
@@ -10,16 +10,17 @@ Drop in a **bank statement CSV** and a **ledger CSV** and LedgerMatch reconciles
 
 Month-end bank reconciliation is one of the most repetitive jobs in bookkeeping: two lists of the same money, written down differently. `PAYROLL DEPOSIT ACME CORP` on the statement is `Payroll — Acme Corp contract` in the books, posted a day later. LedgerMatch automates the line-by-line comparison so you only look at the exceptions.
 
-## Features
+## What it does
 
-- **Fuzzy matching engine** — exact-amount candidates are scored by date proximity (configurable window) and token-overlap description similarity, then paired greedily best-score-first, so each transaction matches at most once
-- **Confidence scores** — every matched pair shows how sure the engine is (green / amber / red)
-- **Exception reports** — separate lists for *"on the bank statement, not in your books"* (bank fees, interest) and *"in your books, not on the bank statement"* (outstanding deposits, uncleared cheques)
-- **Column auto-detection** — finds date / description / amount (or debit / credit) columns from your CSV headers; handles `$1,234.56`, negatives, and `(bracketed)` accounting negatives
-- **CSV report export** — one click produces a reconciliation report you can file with your working papers
-- **100% client-side** — plain HTML/CSS/JS, zero dependencies, no upload; your financial data never leaves the browser
+- Matches by amount first, then scores candidates on date proximity (configurable window) and token-overlap description similarity, pairing greedily best-score-first so each transaction matches at most once
+- Shows a confidence score on every matched pair
+- Lists exceptions separately: on the statement but not in the books (bank fees, interest) and in the books but not on the statement (outstanding deposits, uncleared cheques)
+- Auto-detects date / description / amount (or debit / credit) columns from CSV headers; handles `$1,234.56`, negatives, and `(bracketed)` accounting negatives
+- Exports a reconciliation report as CSV
 
-## Run locally
+Everything runs in the browser — no upload, no dependencies.
+
+## Run it
 
 ```bash
 git clone https://github.com/NoahBulbring/ledgermatch.git
@@ -42,12 +43,6 @@ node test.js
    - up to `0.2` for Jaccard similarity of description tokens
 3. Sort all candidate pairs by score and accept greedily — each bank line and ledger line is used at most once
 4. Whatever's left on either side is an exception for human review
-
-## Build prompt
-
-This project was built end-to-end by an AI agent from this prompt:
-
-> Build a bank reconciliation tool: drop in a bank statement CSV and a ledger CSV, fuzzy-match transactions by amount/date/description, flag unmatched items and produce a reconciliation summary. Runs fully client-side.
 
 ## License
 
