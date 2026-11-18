@@ -35,12 +35,14 @@ function loadSide(side, text, label) {
 }
 
 function maybeRun() {
+  // only run once both files are loaded
   if (!state.bank || !state.ledger) return;
   state.result = reconcile(state.bank, state.ledger, parseInt($('window').value, 10) || 5);
   render(state.result);
 }
 
 function badge(score) {
+  // 85 / 65 cutoffs are arbitrary
   const p = Math.round(score * 100);
   const cls = score >= 0.85 ? 'high' : score >= 0.65 ? 'med' : 'low';
   return `<span class="conf ${cls}">${p}%</span>`;
@@ -83,6 +85,7 @@ function esc(s) {
 }
 
 function exportReport() {
+  // TODO: .xlsx support — a lot of bank exports come as Excel
   const r = state.result;
   if (!r) return;
   const lines = ['Section,Bank date,Bank description,Ledger date,Ledger description,Amount,Confidence'];
