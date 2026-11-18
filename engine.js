@@ -31,6 +31,7 @@ function detectColumns(header) {
   let amount = find('amount', 'value', 'total');
   const debit = find('debit', 'withdrawal', 'money out');
   const credit = find('credit', 'deposit', 'money in');
+  // most bank exports put date/description first, so fall back to that
   if (date < 0) date = 0;
   if (desc < 0) desc = 1;
   return { date, desc, amount, debit, credit };
@@ -99,7 +100,8 @@ function dayDiff(a, b) {
 }
 
 /* Score a candidate pair. Amounts must match to the cent.
-   Confidence from date proximity + description similarity.   */
+   Confidence from date proximity + description similarity.
+   Weights (0.5 / 0.3 / 0.2) were tuned by hand on the sample files. */
 function scorePair(bank, ledger, windowDays) {
   if (bank.amount !== ledger.amount) return 0;
   const dd = dayDiff(bank.date, ledger.date);
@@ -111,7 +113,8 @@ function scorePair(bank, ledger, windowDays) {
 }
 
 /* Greedy best-first matching: score all candidate pairs, take
-   highest scores first, each transaction used at most once.   */
+   highest scores first, each transaction used at most once.
+   TODO: allow a 1-cent tolerance for rounding instead of exact-to-the-cent. */
 function reconcile(bankTxns, ledgerTxns, windowDays = 5) {
   const candidates = [];
   const byAmount = new Map();
